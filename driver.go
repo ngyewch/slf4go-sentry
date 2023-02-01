@@ -31,7 +31,6 @@ func (d *SentryDriver) Print(l *slog.Log) {
 	event := sentry.NewEvent()
 	event.Timestamp = time.Unix(l.Time/1000000, (l.Time%1000000)*1000)
 	event.Logger = l.Logger
-	event.Contexts = l.CxtFields
 	event.Extra = l.Fields
 
 	switch l.Level {
@@ -91,7 +90,7 @@ func (d *SentryDriver) GetLevel(logger string) (sl slog.Level) {
 func newStacktrace() *sentry.Stacktrace {
 	const (
 		currentModule = "github.com/ngyewch/slf4go-sentry"
-		slf4goModule = "github.com/go-eden/slf4go"
+		slf4goModule  = "github.com/go-eden/slf4go"
 	)
 
 	st := sentry.NewStacktrace()
